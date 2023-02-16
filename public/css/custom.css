@@ -1,0 +1,30 @@
+/*============================================================================================*/
+/* Your custom styles below */
+/*============================================================================================*/
+.mt-30{
+    margin-top: 30px !important;
+}
+
+
+@media (min-width: 1281px) {
+
+    .mt-30-desktop{
+        margin-top: 30px !important;
+    }
+
+}
+
+/*
+  ##Device = Laptops, Desktops
+  ##Screen = B/w 1025px to 1280px
+*/
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+
+    .mt-30-desktop{
+        margin-top: 30px !important;
+    }
+
+}
+
+
