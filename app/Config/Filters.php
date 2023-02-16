@@ -2,6 +2,7 @@
 
 namespace Config;
 
+use App\Filters\Session_timeout;
 use CodeIgniter\Config\BaseConfig;
 use CodeIgniter\Filters\CSRF;
 use CodeIgniter\Filters\DebugToolbar;
@@ -21,6 +22,7 @@ class Filters extends BaseConfig
         'honeypot'      => Honeypot::class,
         'invalidchars'  => InvalidChars::class,
         'secureheaders' => SecureHeaders::class,
+        //'session_timeout' => Session_timeout::class,
     ];
 
     /**
@@ -29,7 +31,7 @@ class Filters extends BaseConfig
      */
     public array $globals = [
         'before' => [
-            // 'honeypot',
+            // '/',
             // 'csrf',
             // 'invalidchars',
         ],

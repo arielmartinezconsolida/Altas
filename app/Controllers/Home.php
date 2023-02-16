@@ -36,6 +36,10 @@ class Home extends BaseController
     }
 
     public function wizard(){
+        if (!session('logged_in'))
+        {
+            return redirect()->to(site_url());
+        }
         if($this->request->getPost()){
             $data_post = $this->request->getPost();
 
@@ -88,6 +92,7 @@ class Home extends BaseController
         $session_data = array(
             'id'         => $user->id,
             'username'   => $user->username,
+            'logged_in'   => TRUE,
         );
 
         session()->set($session_data);
