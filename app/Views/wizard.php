@@ -172,22 +172,21 @@
                                     <input type="text" name="address_number" id="address_number" class="form-control required">
                                 </div>
                                 <div class="form-group">
-                                    <label for="zip">CP</label>
-                                    <input minlength="5" maxlength="5" type="text" name="zip" id="zip" class="form-control required">
-                                </div>
-                                <div class="form-group">
                                     <label for="stairs">Escalera</label>
-                                    <input type="text" maxlength="3" name="stairs" id="stairs" class="form-control required">
+                                    <input type="text" maxlength="3" name="stairs" id="stairs" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label for="floor">Piso</label>
-                                    <input type="text" maxlength="3" name="floor" id="floor" class="form-control required">
+                                    <input type="text" maxlength="3" name="floor" id="floor" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label for="door">Puerta</label>
-                                    <input type="text" maxlength="3" name="door" id="door" class="form-control required">
+                                    <input type="text" maxlength="3" name="door" id="door" class="form-control">
                                 </div>
-
+                                <div class="form-group">
+                                    <label for="zip">CP</label>
+                                    <input minlength="5" maxlength="5" type="text" name="zip" id="zip" class="form-control required">
+                                </div>
                             </div>
                             <!-- /step-->
 
@@ -273,6 +272,7 @@
                         </div>
                         <!-- /bottom-wizard -->
                         <input type="hidden" value="" id="weekly_working_hours_hidden"/>
+                        <input type="hidden" value="" name="country_hidden" id="country_hidden" value=""/>
                     </form>
                 </div>
                 <!-- /Wizard container -->
@@ -340,9 +340,12 @@
 
         $(".dni").click(function(){
             $("#country").val('España');
+            $("#country").attr('disabled', true);
+            $('#country_hidden').val('España');
         });
         $(".nie").click(function(){
             $("#country").val('');
+            $("#country").attr('disabled', false);
         });
 
         $(".type_of_day_full").click(function(){
