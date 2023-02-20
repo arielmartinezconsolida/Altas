@@ -64,7 +64,7 @@ class Cron extends BaseController
         $country = $employee_not_processed['country'] != '' ? $employee_not_processed['country'] : 'España';
         $contract_date_end = ($employee_not_processed['contract_type'] == 'Temporal') ? date('d/m/Y', strtotime($employee_not_processed['contract_date_end'])) : '';
         $Reference = date('d-m-Y').' '.$employee_not_processed['name'];
-        $datetime = new DateTime('tomorrow');
+        $datetime = new \DateTime('tomorrow');
         $date =  $datetime->format('Y-m-d');
         //"DeferDate": "'.$today.'T14:19:56.4407392Z",
         curl_setopt_array($curl, array(
