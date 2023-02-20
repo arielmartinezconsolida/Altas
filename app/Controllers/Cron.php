@@ -93,7 +93,7 @@ class Cron extends BaseController
                               "sexo": "'.$employee_not_processed['gender'].'",
                               "paisOrigen": "'.$country.'",
                               "tipoVia": "'.$employee_not_processed['road_type'].'",
-                              "nombreVia": "'.$employee_not_processed['steet_name'].'",
+                              "nombreVia": "'.$employee_not_processed['street_name'].'",
                               "numeroDomicilio": "'.$employee_not_processed['address_number'].'",
                               "escalera": "'.$stairs.'",
                               "piso": "'.$employee_not_processed['floor'].'",
