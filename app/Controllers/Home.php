@@ -46,7 +46,7 @@ class Home extends BaseController
             $country = $data_post['country'] ?? null;
             $data_post['country'] = $country ?? $data_post['country_hidden'];
 
-            $weekly_working_hours = $data_post['weekly_working_hours'];
+            $weekly_working_hours = $data_post['weekly_working_hours'] ?? null;
             $weekly_working_hours = $weekly_working_hours ?? $data_post['weekly_working_hours_hidden'];
             $data_post['weekly_working_hours'] = str_replace(',', '.', $weekly_working_hours);
 

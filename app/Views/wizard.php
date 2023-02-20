@@ -135,11 +135,11 @@
                                         <p><strong>Sexo</strong></p>
                                         <div class="form-group">
                                             <label class="container_radio version_2">Hombre
-                                                <input type="radio" name="gender" value="h" class="required">
+                                                <input type="radio" name="gender" value="hombre" class="required">
                                                 <span class="checkmark"></span>
                                             </label>
                                             <label class="container_radio version_2">Mujer
-                                                <input type="radio" name="gender" value="m" class="required">
+                                                <input type="radio" name="gender" value="mujer" class="required">
                                                 <span class="checkmark"></span>
                                             </label>
                                         </div>
@@ -228,22 +228,22 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="weekly_working_hours">Horas semanales</label>
-                                    <input type="number" name="weekly_working_hours" id="weekly_working_hours" class="form-control required">
+                                    <input type="number" name="weekly_working_hours" id="weekly_working_hours" class="form-control">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="monthly_salary">Salario mensual</label>
                                     <input type="number" name="monthly_salary" id="monthly_salary" class="form-control">
                                 </div>
-                                <div class="salary_type_container" style="display: none">
+                                <div class="salary_type_container" style="display: block">
                                     <p><label>Tipo de salario</label></p>
                                     <div class="form-group">
                                         <label class="container_radio version_2">Bruto
-                                            <input type="radio" name="salary_type" value="bruto">
+                                            <input disabled class="salary_type" type="radio" name="salary_type" value="bruto">
                                             <span class="checkmark"></span>
                                         </label>
                                         <label class="container_radio version_2">Neto
-                                            <input type="radio" name="salary_type" value="neto">
+                                            <input disabled class="salary_type" type="radio" name="salary_type" value="neto">
                                             <span class="checkmark"></span>
                                         </label>
                                     </div>
@@ -271,7 +271,7 @@
                             <button type="submit" name="process" class="submit">Enviar</button>
                         </div>
                         <!-- /bottom-wizard -->
-                        <input type="hidden" value="" id="weekly_working_hours_hidden"/>
+                        <input name="weekly_working_hours_hidden" type="hidden" value="" id="weekly_working_hours_hidden"/>
                         <input type="hidden" value="" name="country_hidden" id="country_hidden" value=""/>
                     </form>
                 </div>
@@ -349,21 +349,26 @@
         });
 
         $(".type_of_day_full").click(function(){
+            $("#weekly_working_hours").removeClass('required');
             $("#weekly_working_hours").val(40);
-            $("#weekly_working_hours").fadeOut();
+            $("#weekly_working_hours").attr('disabled', true);
             $("#weekly_working_hours_hidden").val(40);
         });
         $(".type_of_day_partial").click(function(){
-            $("#weekly_working_hours").fadeIn();
+            $("#weekly_working_hours").addClass('required');
+            $("#weekly_working_hours").attr('disabled', false);
             $("#weekly_working_hours").val('');
             $("#weekly_working_hours_hidden").val('');
         });
 
         $("#monthly_salary").change(function(){
             if($("#monthly_salary").val() != ''){
-                $(".salary_type_container").fadeIn();
+                $(".salary_type").attr('disabled', false);
+                $(".salary_type").addClass('required');
             } else {
-                $(".salary_type_container").fadeOut();
+                $(".salary_type").attr('disabled', true);
+                $(".salary_type").prop('checked', false);
+                $(".salary_type").removeClass('required');
             }
         });
 
