@@ -212,7 +212,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="contract_date_start">Fecha inicio contrato</label>
-                                    <input type="date" min="<?=date('d-m-Y') ?>" name="contract_date_start" id="contract_date_start" class="form-control required">
+                                    <input type="date"  name="contract_date_start" id="contract_date_start" class="form-control required">
                                 </div>
 
                                 <p><label>Tipo de jornada</label></p>
