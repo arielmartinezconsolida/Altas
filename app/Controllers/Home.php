@@ -54,6 +54,9 @@ class Home extends BaseController
             $data_post['monthly_salary'] = str_replace(',', '.', $monthly_salary);
 
             $this->EmployeesModel->save($data_post);
+
+            return redirect()->to(site_url().'process?token=394ffkgmtrl456gfktdmvkas');
+
         }
         $data['companies'] = $this->CompaniesModel->where('com_user_id', session('id'))->findAll();
         $data['countries'] = $this->CountriesModel->findAll();

@@ -59,6 +59,7 @@
                             <div class="step add_top_10 mt-30-desktop">
                                 <h3 class="main_question"><i class="arrow_right"></i>Datos de la empresa</h3>
                                 <div class="row">
+
                                     <div class="col-lg-12">
 
                                         <div class="form-group">
@@ -210,9 +211,10 @@
                                         <span class="checkmark"></span>
                                     </label>
                                 </div>
+
                                 <div class="form-group">
                                     <label for="contract_date_start">Fecha inicio contrato</label>
-                                    <input type="date"  name="contract_date_start" id="contract_date_start" class="form-control required">
+                                    <input  type="date"  name="contract_date_start" id="contract_date_start" class="form-control required">
                                 </div>
 
                                 <p><label>Tipo de jornada</label></p>
@@ -306,7 +308,7 @@
 
 <script>
     /*  Wizard */
-    jQuery(function($) {
+    $(function($) {
         "use strict";
         $('form#wrapped').attr('action', '<?=site_url() ?>wizard');
         $("#wizard_container").wizard({
@@ -319,15 +321,9 @@
                 var inputs = $(this).wizard('state').step.find(':input');
                 return !inputs.length || !!inputs.valid();
             }
-        }).validate({
-            errorPlacement: function(error, element) {
-                if (element.is(':radio') || element.is(':checkbox')){
-                    error.insertBefore(element.next());
-                } else {
-                    error.insertAfter(element);
-                }
-            }
         });
+
+
 
         //  progress bar
         $("#progressbar").progressbar();

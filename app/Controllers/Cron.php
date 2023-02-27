@@ -13,6 +13,7 @@ class Cron extends BaseController
         if(!isset($_GET['token']) || $_GET['token'] != '394ffkgmtrl456gfktdmvkas') return false;
         $access_token = $this->getToken();
         $this->processQueue($access_token);
+        return redirect()->to(site_url().'wizard');
     }
 
     private function getToken(){
