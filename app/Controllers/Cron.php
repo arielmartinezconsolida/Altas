@@ -65,9 +65,8 @@ class Cron extends BaseController
         $country = $employee_not_processed['country'] != '' ? $employee_not_processed['country'] : 'España';
         $contract_date_end = ($employee_not_processed['contract_type'] == 'Temporal') ? date('d/m/Y', strtotime($employee_not_processed['contract_date_end'])) : '';
         $Reference = date('d-m-Y').' '.$employee_not_processed['name'];
-        $datetime = new \DateTime('tomorrow');
-        $date =  $datetime->format('Y-m-d');
-        //"DeferDate": "'.$today.'T14:19:56.4407392Z",
+        $five_days =  date('Y-m-d', strtotime('+5 days'));
+        $today = date('Y-m-d');
         curl_setopt_array($curl, array(
             CURLOPT_URL => 'https://cloud.uipath.com/mtodoconsolida/DefaultTenant/odata/Queues/UiPathODataSvc.AddQueueItem',
             CURLOPT_RETURNTRANSFER => true,
@@ -79,8 +78,8 @@ class Cron extends BaseController
             CURLOPT_CUSTOMREQUEST => 'POST',
             CURLOPT_POSTFIELDS =>'{
                           "itemData": {
-                            "DeferDate": "'.$date.'T14:19:56.4407392Z",
-                            "DueDate": "'.$date.'T14:19:56.4407392Z",
+                            "DeferDate": "'.$today.'T00:00:00.4407392Z",
+                            "DueDate": "'.$five_days.'T11:59:56.4407392Z",
                             "Priority": "Normal",
                             "Name": "GEES_002_020_AltasA3",
                             "SpecificContent": {
