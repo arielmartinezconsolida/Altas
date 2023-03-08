@@ -58,6 +58,7 @@
 
                             <div class="step add_top_10 mt-30-desktop">
                                 <h3 class="main_question"><i class="arrow_right"></i>Datos de la empresa</h3>
+
                                 <div class="row">
 
                                     <div class="col-lg-12">
@@ -213,7 +214,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="contract_date_start">Fecha inicio contrato</label>
+                                    <label for="contract_date_start">Fecha inicio contrato</label><span for="contract_date_start" class="error error_contract_date_start" style="display: none">La fecha del contrato no puede ser antes de hoy</span>
                                     <input  type="date"  name="contract_date_start" id="contract_date_start" class="form-control required">
                                 </div>
 
@@ -366,6 +367,18 @@
                 $(".salary_type").prop('checked', false);
                 $(".salary_type").removeClass('required');
             }
+        });
+
+        $("#contract_date_start").change(function(){
+            var url = "<?php echo site_url() ?>home/validate_date?date=" + $(this).val()
+            $.ajax({url: url, success: function(result){
+                    if(result == '1'){
+                        $(".error_contract_date_start").fadeIn()
+                    } else {
+                        $(".error_contract_date_start").fadeOut()
+                    }
+
+            }});
         });
 
 

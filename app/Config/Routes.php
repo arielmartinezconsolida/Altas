@@ -32,6 +32,7 @@ $routes->set404Override();
 $routes->add('/', 'Home::index');
 $routes->add('wizard', 'Home::wizard');
 $routes->add('process', 'Cron::index');
+$routes->add('home/validate_date', 'Home::validate_date');
 
 /*
  * --------------------------------------------------------------------

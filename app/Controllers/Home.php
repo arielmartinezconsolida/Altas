@@ -122,4 +122,12 @@ class Home extends BaseController
             ]
         ];
     }
+
+    function validate_date(){
+        $date = $this->request->getGet('date');
+        if (date('Y-m-d') > $date)
+            echo 1;
+        else
+            echo 0;
+    }
 }
