@@ -273,6 +273,11 @@
                             <button type="button" name="forward" class="forward">Siguiente</button>
                             <button type="submit" name="process" class="submit">Enviar</button>
                         </div>
+                        <div id="sending-form" style="display: none">
+                            <div class="row">
+                                <div class="col-12 text-center"><h4>Enviando datos...</h4></div>
+                            </div>
+                        </div>
                         <!-- /bottom-wizard -->
                         <input name="weekly_working_hours_hidden" type="hidden" value="" id="weekly_working_hours_hidden"/>
                         <input type="hidden" value="" name="country_hidden" id="country_hidden" value=""/>
@@ -308,6 +313,8 @@
 <script src="<?=getenv('JS') ?>common_functions.js"></script>
 
 <script>
+
+    var step = 1;
     /*  Wizard */
     $(function($) {
         "use strict";
@@ -358,6 +365,7 @@
             $("#weekly_working_hours_hidden").val('');
         });
 
+
         $("#monthly_salary").change(function(){
             if($("#monthly_salary").val() != ''){
                 $(".salary_type").attr('disabled', false);
@@ -370,7 +378,31 @@
         });
 
         $("#contract_date_start").change(function(){
-            var url = "<?php echo site_url() ?>home/validate_date?date=" + $(this).val()
+            validate_date_contract();
+        });
+        $("#contract_date_start").focusout(function(){
+            validate_date_contract();
+        });
+
+        $(".backward").click(function(){
+            step = step - 1;
+            $(".forward").fadeIn()
+        });
+
+        $(".forward").click(function(){
+                step = step + 1;
+                if(step == 3 && $("#contract_date_start").val() != ''){
+                    validate_date_contract();
+                }
+        });
+
+        $(".submit").click(function(){
+            $("#bottom-wizard").hide();
+            $("#sending-form").fadeIn();
+        });
+
+        function validate_date_contract(){
+            var url = "<?php echo site_url() ?>home/validate_date?date=" + $("#contract_date_start").val()
             $.ajax({url: url, success: function(result){
                     if(result == '1'){
                         $(".error_contract_date_start").fadeIn()
@@ -380,8 +412,8 @@
                         $(".forward").fadeIn()
                     }
 
-            }});
-        });
+                }});
+        }
 
 
     });
