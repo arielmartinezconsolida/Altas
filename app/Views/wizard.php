@@ -374,8 +374,10 @@
             $.ajax({url: url, success: function(result){
                     if(result == '1'){
                         $(".error_contract_date_start").fadeIn()
+                        $(".forward").fadeOut()
                     } else {
                         $(".error_contract_date_start").fadeOut()
+                        $(".forward").fadeIn()
                     }
 
             }});
