@@ -61,7 +61,7 @@ class Home extends BaseController
         $data['companies'] = $this->CompaniesModel->where('com_user_id', session('id'))->findAll();
         $data['countries'] = $this->CountriesModel->findAll();
         $data['road_types'] = $this->Road_typesModel->findAll();
-        $data['categories'] = $this->CategoriesModel->findAll();
+        $data['categories'] = $this->CategoriesModel->orderBy('cat_name', 'ASC')->findAll();
         echo view('wizard', $data);
 
     }
