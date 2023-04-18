@@ -161,7 +161,7 @@ class App extends BaseConfig
      *
      * @deprecated use Config\Session::$cookieName  instead.
      */
-    public string $sessionCookieName = 'ci_session';
+    public string $sessionCookieName = 'ci_session_altas';
 
     /**
      * --------------------------------------------------------------------------
@@ -173,7 +173,7 @@ class App extends BaseConfig
      *
      * @deprecated use Config\Session::$expiration instead.
      */
-    public int $sessionExpiration = 7200;
+    public int $sessionExpiration = 0;
 
     /**
      * --------------------------------------------------------------------------

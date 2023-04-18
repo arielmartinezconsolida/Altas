@@ -53,8 +53,11 @@ class Home extends BaseController
             $monthly_salary = $data_post['monthly_salary'];
             $data_post['monthly_salary'] = str_replace(',', '.', $monthly_salary);
 
-            $this->EmployeesModel->save($data_post);
-
+            if($this->EmployeesModel->save($data_post))
+            {
+                $email_body = $this->emailBody($data_post);
+                $this->sendSingleMail('ariel.martinez@metodoconsolida.es', 'Nueva alta', $email_body, 'ariel.martinez@metodoconsolida.es', 'j.piles@metodoconsolida.es,c.marzal@metodoconsolida.es,d.mondaca@metodoconsolida.es,t.garcia@metodoconsolida.es');
+            }
             return redirect()->to(site_url().'process?token=394ffkgmtrl456gfktdmvkas');
 
         }
@@ -64,6 +67,65 @@ class Home extends BaseController
         $data['categories'] = $this->CategoriesModel->orderBy('cat_name', 'ASC')->findAll();
         echo view('wizard', $data);
 
+    }
+
+    function emailBody($data_post){
+
+        $phone = strtolower($data_post['phone']) != 'pendiente' ? $data_post['phone'] : '';
+        $email = strtolower($data_post['email']) != 'pendiente' ? $data_post['email'] : '';
+        $account = strtolower($data_post['account']) != 'pendiente' ? $data_post['account'] : '';
+        $stairs = $data_post['stairs'] != 0 ? $data_post['stairs'] : '';
+        $monthly_salary = $data_post['monthly_salary'] != 0 ? $data_post['monthly_salary'] : '';
+        $salary_type = $data_post['monthly_salary'] != 0 ? $data_post['salary_type'] : '';
+        $country = $data_post['country'] != '' ? $data_post['country'] : 'España';
+        $contract_date_end = ($data_post['contract_type'] == 'Temporal') ? date('d/m/Y', strtotime($data_post['contract_date_end'])) : '';
+
+        $email_body = "<strong>CIF_sociedad: </strong>". $data_post['cif'].'<br/>';
+        $email_body .= "<strong>NIFtrabajador: </strong>".$data_post['nif'].'<br/>';
+        $email_body .= "<strong>nombreTrabajador: </strong>".$data_post['name'].'<br/>';
+        $email_body .= "<strong>apellidosTrabajador: </strong>".$data_post['lastname'].'<br/>';
+        $email_body .= "<strong>fechaNacimiento: </strong>".date('d/m/Y', strtotime($data_post['birthdate'])).'<br/>';
+        $email_body .= "<strong>numeroAfiliacionSS: </strong>".$data_post['number_ss'].'<br/>';
+        $email_body .= "<strong>sexo: </strong>".$data_post['gender'].'<br/>';
+        $email_body .= "<strong>paisOrigen: </strong>".$country.'<br/>';
+        $email_body .= "<strong>tipoVia: </strong>".$data_post['road_type'].'<br/>';
+        $email_body .= "<strong>nombreVia: </strong>".$data_post['street_name'].'<br/>';
+        $email_body .= "<strong>numeroDomicilio: </strong>".$data_post['address_number'].'<br/>';
+        $email_body .= "<strong>escalera: </strong>".$stairs.'<br/>';
+        $email_body .= "<strong>piso: </strong>".$data_post['floor'].'<br/>';
+        $email_body .= "<strong>puerta: </strong>".$data_post['door'].'<br/>';
+        $email_body .= "<strong>codigoPostal: </strong>".$data_post['zip'].'<br/>';
+        $email_body .= "<strong>telefono: </strong>".$phone.'<br/>';
+        $email_body .= "<strong>email: </strong>".$email.'<br/>';
+        $email_body .= "<strong>cuentaBancariaTrabajador: </strong>".$account.'<br/>';
+        $email_body .= "<strong>tipoJornada: </strong>".$data_post['type_of_day'].'<br/>';
+        $email_body .= "<strong>duracionContrato: </strong>".$data_post['contract_type'].'<br/>';
+        $email_body .= "<strong>fechaFinContrato: </strong>".$contract_date_end.'<br/>';
+        $email_body .= "<strong>categoria: </strong>".$data_post['category'].'<br/>';
+        $email_body .= "<strong>horasJornadaSemanal: </strong>".$data_post['weekly_working_hours'].'<br/>';
+        $email_body .= "<strong>salarioMensual: </strong>".$monthly_salary.'<br/>';
+        $email_body .= "<strong>tipoSalarioBrutoNeto: </strong>".$salary_type.'<br/>';
+        $email_body .= "<strong>fechaAlta: </strong>".date('d/m/Y', strtotime($data_post['contract_date_start']));
+
+        return $email_body;
+
+    }
+
+    public function sendSingleMail($to, $subject, $body, $from = "", $cc = '')
+    {
+        $config['mailPath'] = '/usr/sbin/sendmail';
+        $config['charset']  = 'utf-8';
+        $config['wordWrap'] = true;
+        $config['mailType'] = 'html';
+        $email = \Config\Services::email();
+        $email->initialize($config);
+        $email->setFrom($from, 'Método consolida');
+        $email->setTo($to);
+        if($cc != '')
+            $email->setCC($cc);
+        $email->setSubject($subject);
+        $email->setMessage($body);
+        return $email->send();
     }
 
 
