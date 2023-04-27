@@ -64,7 +64,7 @@
                                     <div class="col-lg-12">
 
                                         <div class="form-group">
-                                            <label for="cif">Sociedad</label>
+                                            <label for="cif">Sociedad <small class="text-danger">*</small></label>
                                             <?php if(!empty($companies)) { ?>
                                                 <select id="cif" name="cif" class="form-control required">
                                                     <option value="">Seleccione sociedad</option>
@@ -81,18 +81,18 @@
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="form-group">
-                                            <label for="name">Nombre</label>
+                                            <label for="name">Nombre <small class="text-danger">*</small></label>
                                             <input type="text" name="name" id="name" class="form-control required">
                                         </div>
                                         <div class="form-group">
-                                            <label for="lastname">Apellidos</label>
+                                            <label for="lastname">Apellidos <small class="text-danger">*</small></label>
                                             <input type="text" name="lastname" id="lastname" class="form-control required">
                                         </div>
-                                        <p><strong>Fecha de nacimiento</strong></p>
+                                        <p><strong>Fecha de nacimiento <small class="text-danger">*</small></strong></p>
                                         <div class="form-group">
                                             <input type="date" name="birthdate" id="birthdate" class="form-control required">
                                         </div>
-                                        <p><strong>Seleccione tipo de documento</strong></p>
+                                        <p><strong>Seleccione tipo de documento <small class="text-danger">*</small></strong></p>
                                         <div class="form-group">
                                             <label class="container_radio version_2 dni">DNI
                                                 <input type="radio" name="document_type" value="dni" class="required">
@@ -104,11 +104,11 @@
                                             </label>
                                         </div>
                                         <div class="form-group">
-                                            <label for="nif">Introduzca el documento</label>
+                                            <label for="nif">Introduzca el documento <small class="text-danger">*</small></label>
                                             <input type="text" name="nif" id="nif" class="form-control required">
                                         </div>
                                         <div class="form-group">
-                                            <label for="country">País de origen</label>
+                                            <label for="country">País de origen <small class="text-danger">*</small></label>
                                             <?php if(!empty($countries)) { ?>
                                                 <select id="country" name="country" class="form-control required">
                                                     <option value="">País de origen</option>
@@ -119,7 +119,7 @@
                                             <?php } ?>
                                         </div>
                                         <div class="form-group">
-                                            <label for="number_ss">Número seguridad social (12 dígitos)</label>
+                                            <label for="number_ss">Número seguridad social (12 dígitos) <small class="text-danger">*</small></label>
                                             <input minlength="12" maxlength="12" type="text" name="number_ss" id="number_ss" class="form-control required">
                                         </div>
                                         <div class="form-group">
@@ -134,7 +134,7 @@
                                             <label for="phone">Teléfono (9 dígitos)</label>
                                             <input maxlength="9" minlength="9"  type="text" name="phone" id="phone" class="form-control">
                                         </div>
-                                        <p><strong>Sexo</strong></p>
+                                        <p><strong>Sexo <small class="text-danger">*</small></strong></p>
                                         <div class="form-group">
                                             <label class="container_radio version_2">Hombre
                                                 <input type="radio" name="gender" value="hombre" class="required">
@@ -155,7 +155,7 @@
                             <div class="step add_top_10">
                                 <h3 class="main_question"><i class="arrow_right"></i>Dirección personal</h3>
                                 <div class="form-group">
-                                    <label for="road_type">Tipo de vía</label>
+                                    <label for="road_type">Tipo de vía <small class="text-danger">*</small></label>
                                     <?php if(!empty($road_types)) { ?>
                                         <select id="road_type" name="road_type" class="form-control required">
                                             <option value="">Seleccione el tipo de via</option>
@@ -166,11 +166,11 @@
                                     <?php } ?>
                                 </div>
                                 <div class="form-group">
-                                    <label for="street_name">Nombre de vía</label>
+                                    <label for="street_name">Nombre de vía <small class="text-danger">*</small></label>
                                     <input type="text" name="street_name" id="street_name" class="form-control required">
                                 </div>
                                 <div class="form-group">
-                                    <label for="address_number">Número de domicilio</label>
+                                    <label for="address_number">Número de domicilio <small class="text-danger">*</small></label>
                                     <input type="text" name="address_number" id="address_number" class="form-control required">
                                 </div>
                                 <div class="form-group">
@@ -186,7 +186,7 @@
                                     <input type="text" maxlength="3" name="door" id="door" class="form-control">
                                 </div>
                                 <div class="form-group">
-                                    <label for="zip">CP</label>
+                                    <label for="zip">CP <small class="text-danger">*</small></label>
                                     <input minlength="5" maxlength="5" type="text" name="zip" id="zip" class="form-control required">
                                 </div>
                             </div>
@@ -195,7 +195,7 @@
                             <div class="step">
                                 <h3 class="main_question"><i class="arrow_right"></i>Datos del contrato</h3>
                                 <div class="form-group">
-                                    <label for="category">Categoría</label>
+                                    <label for="category">Categoría <small class="text-danger">*</small></label>
                                     <?php if(!empty($categories)) { ?>
                                         <select id="category" name="category" class="form-control required">
                                             <option value="">Seleccione categoría</option>
@@ -205,7 +205,7 @@
                                         </select>
                                     <?php } ?>
                                 </div>
-                                <p><label>Tipo contrato</label></p>
+                                <p><label>Tipo contrato <small class="text-danger">*</small></label></p>
                                 <div class="form-group">
                                     <label class="container_radio version_2">Indefinido
                                         <input checked type="radio" name="contract_type" value="indefinido" class="required">
@@ -214,11 +214,11 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="contract_date_start">Fecha inicio contrato</label><span for="contract_date_start" class="error error_contract_date_start" style="display: none">La fecha del contrato no puede ser antes de hoy</span>
+                                    <label for="contract_date_start">Fecha inicio contrato <small class="text-danger">*</small></label><span for="contract_date_start" class="error error_contract_date_start" style="display: none">La fecha del contrato no puede ser antes de hoy</span>
                                     <input  type="date"  name="contract_date_start" id="contract_date_start" class="form-control required">
                                 </div>
 
-                                <p><label>Tipo de jornada</label></p>
+                                <p><label>Tipo de jornada <small class="text-danger">*</small></label></p>
                                 <div class="form-group">
                                     <label class="container_radio version_2 type_of_day_full">Completa
                                         <input type="radio" name="type_of_day" value="completa" class="required">
