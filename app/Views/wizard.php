@@ -132,7 +132,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="phone">Teléfono (9 dígitos)</label>
-                                            <input maxlength="9" minlength="9"  type="text" name="phone" id="phone" class="form-control">
+                                            <input oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="ej: 666666666" maxlength="9" minlength="9"  type="text" name="phone" id="phone" class="form-control">
                                         </div>
                                         <p><strong>Sexo <small class="text-danger">*</small></strong></p>
                                         <div class="form-group">
@@ -317,6 +317,8 @@
     var step = 1;
     /*  Wizard */
     $(function($) {
+
+
         "use strict";
         $('form#wrapped').attr('action', '<?=site_url() ?>wizard');
         $("#wizard_container").wizard({
@@ -328,6 +330,12 @@
                     return true;
                 var inputs = $(this).wizard('state').step.find(':input');
                 return !inputs.length || !!inputs.valid();
+            }
+        });
+
+        $('#phone').on('keypress', function(e) {
+            if (e.which == 32){
+                return false;
             }
         });
 
