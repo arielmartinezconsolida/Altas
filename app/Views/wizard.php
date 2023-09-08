@@ -50,33 +50,63 @@
                     <div id="top-wizard">
                         <div id="progressbar"></div>
                     </div>
-                    <!-- /top-wizard -->
+
                     <form id="wrapped" method="post" action="<?=site_url() ?>wizard">
                         <input id="website" name="website" type="text" value="">
-                        <!-- Leave for security protection, read docs for details -->
+
                         <div id="middle-wizard">
 
+                            <!--Pantalla 1-->
                             <div class="step add_top_10 mt-30-desktop">
                                 <h3 class="main_question"><i class="arrow_right"></i>Datos de la empresa</h3>
-
+                                <!--EMPRESAS-->
                                 <div class="row">
-
                                     <div class="col-lg-12">
-
                                         <div class="form-group">
-                                            <label for="cif">Sociedad <small class="text-danger">*</small></label>
+                                            <label for="company_id">Empresa <small class="text-danger">*</small></label>
                                             <?php if(!empty($companies)) { ?>
-                                                <select id="cif" name="cif" class="form-control required">
+                                                <select id="company_id" name="company_id" class="form-control required">
                                                     <option value="">Seleccione sociedad</option>
                                                 <?php foreach ($companies as $company) { ?>
-                                                     <option value="<?=$company->com_cif ?>"><?=$company->com_name ?></option>
+                                                     <option value="<?=$company->id ?>"><?=$company->com_name ?></option>
                                                 <?php } ?>
                                                 </select>
                                             <?php } ?>
                                         </div>
                                     </div>
-
                                 </div>
+                                <!--CENTROS DE TRABAJO-->
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                                <label for="work_center">Centros de trabajo <small class="text-danger">*</small></label>
+                                                <div class="work_centers_container">
+                                                    <select disabled id="work_center" name="work_center_id" class="form-control required">
+                                                        <option value="">Seleccione antes la empresa</option>
+                                                    </select>
+                                                </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- NIF -->
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label for="nif">NIF <small class="text-danger">*</small></label>
+                                            <input readonly type="text" name="nif" id="nif" class="form-control required">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- CCC -->
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label for="wc_ccc">CCC <small class="text-danger">*</small></label>
+                                            <input readonly type="text" name="wc_ccc" id="wc_ccc" class="form-control required">
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <h3 class="main_question mt-30"><i class="arrow_right"></i>Datos del trabajador</h3>
                                 <div class="row">
                                     <div class="col-lg-12">
@@ -104,8 +134,8 @@
                                             </label>
                                         </div>
                                         <div class="form-group">
-                                            <label for="nif">Introduzca el documento <small class="text-danger">*</small></label>
-                                            <input type="text" name="nif" id="nif" class="form-control required">
+                                            <label for="employee_nif">Introduzca el documento <small class="text-danger">*</small></label>
+                                            <input type="text" name="employee_nif" id="employee_nif" class="form-control required">
                                         </div>
                                         <div class="form-group">
                                             <label for="country">País de origen <small class="text-danger">*</small></label>
@@ -113,7 +143,7 @@
                                                 <select id="country" name="country" class="form-control required">
                                                     <option value="">País de origen</option>
                                                     <?php foreach ($countries as $country) { ?>
-                                                        <option value="<?=$country->cou_name ?>"><?=$country->cou_name ?></option>
+                                                        <option value="<?=$country->cou_letters ?>"><?=$country->cou_name ?></option>
                                                     <?php } ?>
                                                 </select>
                                             <?php } ?>
@@ -145,19 +175,49 @@
                                                 <span class="checkmark"></span>
                                             </label>
                                         </div>
+                                        <div class="form-group">
+                                            <label for="civil_status">Estado civil <small class="text-danger">*</small></label>
+                                            <select id="civil_status" name="civil_status" class="form-control required">
+                                                <option value="">Seleccione</option>
+                                                <option value="1">Soltero/a</option>
+                                                <option value="2">Casado/a</option>
+                                                <option value="3">Separado/a</option>
+                                                <option value="4">Divorciado/a</option>
+                                                <option value="5">Viudo/a</option>
+                                                <option value="6">Religioso/a</option>
+                                            </select>
+                                        </div>
                                     </div>
 
                                 </div>
-                                <!-- /row -->
                             </div>
-                            <!-- /step-->
 
+                            <!--Pantalla 2-->
                             <div class="step add_top_10">
                                 <h3 class="main_question"><i class="arrow_right"></i>Dirección personal</h3>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label for="province_id">Provincias <small class="text-danger">*</small></label>
+                                            <?php if(!empty($companies)) { ?>
+                                                <select id="province_id" name="province_id" class="form-control required">
+                                                    <option value="">Seleccione provincia</option>
+                                                    <?php foreach ($provinces as $province) { ?>
+                                                        <option value="<?=$province->id ?>"><?=$province->pro_name ?></option>
+                                                    <?php } ?>
+                                                </select>
+                                            <?php } ?>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="form-group">
-                                    <label for="road_type">Tipo de vía <small class="text-danger">*</small></label>
+                                    <label style="display: none" class="municipalities_container_label" for="municipalities">Municipios <small class="text-danger">*</small></label>
+                                    <div class="municipalities_container"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="road_type">Tipo de vía</label>
                                     <?php if(!empty($road_types)) { ?>
-                                        <select id="road_type" name="road_type" class="form-control required">
+                                        <select id="road_type" name="road_type" class="form-control">
                                             <option value="">Seleccione el tipo de via</option>
                                             <?php foreach ($road_types as $road_type) { ?>
                                                 <option value="<?=$road_type->road_name ?>"><?=$road_type->road_name ?></option>
@@ -166,12 +226,12 @@
                                     <?php } ?>
                                 </div>
                                 <div class="form-group">
-                                    <label for="street_name">Nombre de vía <small class="text-danger">*</small></label>
-                                    <input type="text" name="street_name" id="street_name" class="form-control required">
+                                    <label for="street_name">Nombre de vía</label>
+                                    <input type="text" name="street_name" id="street_name" class="form-control">
                                 </div>
                                 <div class="form-group">
-                                    <label for="address_number">Número de domicilio <small class="text-danger">*</small></label>
-                                    <input type="text" name="address_number" id="address_number" class="form-control required">
+                                    <label for="address_number">Número de domicilio</label>
+                                    <input type="text" name="address_number" id="address_number" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label for="stairs">Escalera</label>
@@ -192,19 +252,45 @@
                             </div>
                             <!-- /step-->
 
+                            <!--Pantalla 3-->
                             <div class="step">
                                 <h3 class="main_question"><i class="arrow_right"></i>Datos del contrato</h3>
                                 <div class="form-group">
                                     <label for="category">Categoría <small class="text-danger">*</small></label>
-                                    <?php if(!empty($categories)) { ?>
-                                        <select id="category" name="category" class="form-control required">
-                                            <option value="">Seleccione categoría</option>
-                                            <?php foreach ($categories as $category) { ?>
-                                                <option value="<?=$category->cat_name ?>"><?=$category->cat_name ?></option>
-                                            <?php } ?>
-                                        </select>
-                                    <?php } ?>
+                                    <div class="categories_container"></div>
                                 </div>
+                                <div class="form-group">
+                                    <label style="display: none" class="work_places_container_label" for="category">Puestos de trabajo <small class="text-danger">*</small></label>
+                                    <div class="work_places_container"></div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label for="wp_cod_ocupation">CNO <small class="text-danger">*</small></label>
+                                            <input readonly type="text" name="wp_cod_ocupation" id="wp_cod_ocupation" class="form-control required">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label for="wp_tariff_group">Grupo de tarifa <small class="text-danger">*</small></label>
+                                            <input readonly type="text" name="wp_tariff_group" id="wp_tariff_group" class="form-control required">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label for="wp_type_of_charge">Tipo de cobro <small class="text-danger">*</small></label>
+                                            <input readonly type="text" name="wp_type_of_charge" id="wp_type_of_charge" class="form-control required">
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <p><label>Tipo contrato <small class="text-danger">*</small></label></p>
                                 <div class="form-group">
                                     <label class="container_radio version_2">Indefinido
@@ -212,12 +298,10 @@
                                         <span class="checkmark"></span>
                                     </label>
                                 </div>
-
                                 <div class="form-group">
                                     <label for="contract_date_start">Fecha inicio contrato <small class="text-danger">*</small></label><span for="contract_date_start" class="error error_contract_date_start" style="display: none">La fecha del contrato no puede ser antes de hoy</span>
                                     <input  type="date"  name="contract_date_start" id="contract_date_start" class="form-control required">
                                 </div>
-
                                 <p><label>Tipo de jornada <small class="text-danger">*</small></label></p>
                                 <div class="form-group">
                                     <label class="container_radio version_2 type_of_day_full">Completa
@@ -233,7 +317,6 @@
                                     <label for="weekly_working_hours">Horas semanales</label>
                                     <input type="number" name="weekly_working_hours" id="weekly_working_hours" class="form-control">
                                 </div>
-
                                 <div class="form-group">
                                     <label for="monthly_salary">Salario mensual</label>
                                     <input type="number" name="monthly_salary" id="monthly_salary" class="form-control">
@@ -251,8 +334,6 @@
                                         </label>
                                     </div>
                                 </div>
-
-
                             </div>
                             <!-- /step-->
 
@@ -424,9 +505,58 @@
         }
 
 
+        $("#company_id").change(function(){
+            var url = "<?php echo site_url() ?>home/get_select_work_centers?company_id=" + $("#company_id").val()
+            $.ajax({url: url, success: function(result){
+                var response = JSON.parse(result);
+                $(".work_centers_container").html(response.work_centers);
+                $("#nif").val(response.company_nif);
+                $("#work_center").change(function(){
+                    var ccc = $(this).val();
+                    $("#wc_ccc").val(ccc);
+                });
+                get_categories();
+            }});
+        });
+
+
+
+
+
     });
 
 
+    function get_categories(){
+        var url = "<?php echo site_url() ?>home/get_select_categories?company_id=" + $("#company_id").val()
+        $.ajax({url: url, success: function(result){
+                $(".categories_container").html(result);
+                $("#categories").change(function(){
+                    get_work_places($(this).val())
+                });
+        }});
+    }
+
+
+    function get_work_places(category_id){
+        var url = "<?php echo site_url() ?>home/get_select_work_places?category_id=" + category_id;
+        $.ajax({url: url, success: function(result){
+                $(".work_places_container").html(result);
+                $(".work_places_container_label").fadeIn();
+                get_work_place_data();
+            }});
+    }
+
+    function get_work_place_data(){
+        $("#work_places").change(function(){
+            var url = "<?php echo site_url() ?>home/get_work_place_data?work_place_id_id=" + $(this).val();
+            $.ajax({url: url, success: function(result){
+                    var response = JSON.parse(result);
+                    $("#wp_cod_ocupation").val(response.wp_cod_ocupation);
+                    $("#wp_tariff_group").val(response.wp_tariff_group);
+                    $("#wp_type_of_charge").val(response.wp_type_of_charge);
+            }});
+        })
+    }
 
 
 </script>

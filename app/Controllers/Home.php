@@ -11,6 +11,9 @@ class Home extends BaseController
         $this->Road_typesModel = model('App\Models\Road_typesModel');
         $this->CategoriesModel = model('App\Models\CategoriesModel');
         $this->EmployeesModel = model('App\Models\EmployeesModel');
+        $this->Work_centersModel = model('App\Models\Work_centersModel');
+        $this->Work_placesModel = model('App\Models\Work_placesModel');
+        $this->Provinces_Model = model('App\Models\Work_placesModel');
     }
 
     public function index()
@@ -56,7 +59,7 @@ class Home extends BaseController
             if($this->EmployeesModel->save($data_post))
             {
                 $email_body = $this->emailBody($data_post);
-                $this->sendSingleMail('ariel.martinez@metodoconsolida.es', 'Nueva alta', $email_body, 'ariel.martinez@metodoconsolida.es', 'j.piles@metodoconsolida.es,c.marzal@metodoconsolida.es,d.mondaca@metodoconsolida.es,t.garcia@metodoconsolida.es');
+                $this->sendSingleMail('ariel.martinez@metodoconsolida.es', 'Nueva alta', $email_body, 'ariel.martinez@metodoconsolida.es', 'd.mondaca@metodoconsolida.es');
             }
             return redirect()->to(site_url().'process?token=394ffkgmtrl456gfktdmvkas');
 
@@ -64,7 +67,7 @@ class Home extends BaseController
         $data['companies'] = $this->CompaniesModel->where('com_user_id', session('id'))->findAll();
         $data['countries'] = $this->CountriesModel->findAll();
         $data['road_types'] = $this->Road_typesModel->findAll();
-        $data['categories'] = $this->CategoriesModel->orderBy('cat_name', 'ASC')->findAll();
+        $data['provinces'] = $this->ProvincesModel->findAll();
         echo view('wizard', $data);
 
     }
@@ -191,5 +194,63 @@ class Home extends BaseController
             echo 1;
         else
             echo 0;
+    }
+
+    function get_select_work_centers(){
+        $company_id = $this->request->getGet('company_id');
+        if(empty($company_id)) die('');
+        $company = $this->CompaniesModel->where('id', $company_id)->first();
+        $work_centers = $this->Work_centersModel->where('wc_company_id', $company_id)->findAll();
+        $html = '<select id="work_center" name="work_center" class="form-control required">';
+        if(!empty($work_centers))
+        {
+            $html .= '<option value="">Seleccione</option>';
+            foreach ($work_centers as $work_center) {
+                $html .= '<option value="'.$work_center->wc_ccc.'">'.$work_center->wc_name.' ('.$work_center->wc_address.')'.'</option>';
+            }
+        }
+        $html .= '</select>';
+        echo json_encode(['work_centers' => $html, 'company_nif' => $company->com_cif]);
+    }
+
+
+    function get_select_categories(){
+        $company_id = $this->request->getGet('company_id');
+        if(empty($company_id)) die('');
+        $company = $this->CompaniesModel->where('id', $company_id)->first();
+        $categories = $this->CategoriesModel->where(['cat_agreement_id' => $company->com_agreement_id, 'cat_user_id' => session('id')])->orderBy('cat_name', 'ASC')->findAll();
+        $html = '<select id="categories" name="category_id" class="form-control required">';
+        if(!empty($categories))
+        {
+            $html .= '<option value="">Seleccione</option>';
+            foreach ($categories as $category) {
+                $html .= '<option value="'.$category->id.'">'.$category->cat_name.'</option>';
+            }
+        }
+        $html .= '</select>';
+        echo $html;
+    }
+
+    function get_select_work_places(){
+        $category_id = $this->request->getGet('category_id');
+        if(empty($category_id)) die('');
+        $work_places = $this->Work_placesModel->where(['wp_category_id' => $category_id])->orderBy('wp_name', 'ASC')->findAll();
+        $html = '<select id="work_places" name="work_place_id" class="form-control required">';
+        if(!empty($work_places))
+        {
+            $html .= '<option value="">Seleccione</option>';
+            foreach ($work_places as $work_place) {
+                $html .= '<option value="'.$work_place->id.'">'.$work_place->wp_name.'</option>';
+            }
+        }
+        $html .= '</select>';
+        echo $html;
+    }
+
+    function get_work_place_data(){
+        $work_place_id_id = $this->request->getGet('work_place_id_id');
+        if(empty($work_place_id_id)) die('');
+        $work_place = $this->Work_placesModel->find($work_place_id_id);
+        echo json_encode(['wp_cod_ocupation' => $work_place->wp_cod_ocupation, 'wp_tariff_group' => $work_place->wp_tariff_group, 'wp_type_of_charge' => $work_place->wp_type_of_charge]);
     }
 }

@@ -33,6 +33,10 @@ $routes->add('/', 'Home::index');
 $routes->add('wizard', 'Home::wizard');
 $routes->add('process', 'Cron::index');
 $routes->add('home/validate_date', 'Home::validate_date');
+$routes->add('home/get_select_work_centers', 'Home::get_select_work_centers');
+$routes->add('home/get_select_categories', 'Home::get_select_categories');
+$routes->add('home/get_select_work_places', 'Home::get_select_work_places');
+$routes->add('home/get_work_place_data', 'Home::get_work_place_data');
 
 /*
  * --------------------------------------------------------------------

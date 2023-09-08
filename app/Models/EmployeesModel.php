@@ -6,9 +6,9 @@ use CodeIgniter\Validation\ValidationInterface;
 class EmployeesModel  extends BaseModel
 {
     protected $table = 'employees';
-    protected $allowedFields = ['cif', 'nif','document_type', 'name', 'lastname', 'birthdate', 'number_ss', 'gender', 'country', 'street_name', 'address_number',
+    protected $allowedFields = ['nif', 'work_center_id', 'employee_nif','document_type', 'name', 'lastname', 'birthdate', 'number_ss', 'gender', 'country', 'street_name', 'address_number',
         'stairs', 'floor', 'door', 'zip', 'phone', 'email', 'account', 'type_of_day', 'contract_date_end', 'contract_date_start', 'category',
-        'weekly_working_hours', 'monthly_salary', 'salary_type', 'road_type', 'contract_type', 'processed'];
+        'weekly_working_hours', 'monthly_salary', 'salary_type', 'road_type', 'contract_type', 'processed', 'civil_status', 'father_name', 'mother_name'];
     protected $returnType    = 'App\Entities\Employee';
     protected $useTimestamps = true;
 
