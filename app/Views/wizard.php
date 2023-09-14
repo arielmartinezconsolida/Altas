@@ -21,6 +21,19 @@
 
     <!-- MODERNIZR MENU -->
     <script src="<?=getenv('JS') ?>modernizr.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet">
+    <style>
+        .select2-container .select2-selection--single{
+            height: 45px;
+            padding-top: 7px;
+        }
+        .select2-container--default .select2-selection--single .select2-selection__arrow b{
+            margin-top: 6px;
+        }
+        .select2{
+            width: 100% !important;
+        }
+    </style>
 
 </head>
 
@@ -102,7 +115,7 @@
                                     <div class="col-lg-12">
                                         <div class="form-group">
                                             <label for="wc_ccc">CCC <small class="text-danger">*</small></label>
-                                            <input readonly type="text" name="wc_ccc" id="wc_ccc" class="form-control required">
+                                            <input readonly type="text" name="ccc" id="wc_ccc" class="form-control required">
                                         </div>
                                     </div>
                                 </div>
@@ -140,10 +153,10 @@
                                         <div class="form-group">
                                             <label for="country">País de origen <small class="text-danger">*</small></label>
                                             <?php if(!empty($countries)) { ?>
-                                                <select id="country" name="country" class="form-control required">
+                                                <select id="country" name="country_id" class="form-control required">
                                                     <option value="">País de origen</option>
                                                     <?php foreach ($countries as $country) { ?>
-                                                        <option value="<?=$country->cou_letters ?>"><?=$country->cou_name ?></option>
+                                                        <option value="<?=$country->id ?>"><?=$country->cou_name ?></option>
                                                     <?php } ?>
                                                 </select>
                                             <?php } ?>
@@ -198,6 +211,7 @@
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="form-group">
+
                                             <label for="province_id">Provincias <small class="text-danger">*</small></label>
                                             <?php if(!empty($companies)) { ?>
                                                 <select id="province_id" name="province_id" class="form-control required">
@@ -246,8 +260,8 @@
                                     <input type="text" maxlength="3" name="door" id="door" class="form-control">
                                 </div>
                                 <div class="form-group">
-                                    <label for="zip">CP <small class="text-danger">*</small></label>
-                                    <input minlength="5" maxlength="5" type="text" name="zip" id="zip" class="form-control required">
+                                    <label for="zip">CP</label>
+                                    <input minlength="5" maxlength="5" type="text" name="zip" id="zip" class="form-control">
                                 </div>
                             </div>
                             <!-- /step-->
@@ -259,16 +273,59 @@
                                     <label for="category">Categoría <small class="text-danger">*</small></label>
                                     <div class="categories_container"></div>
                                 </div>
+                                <div style="display: none" class="form-group category_selected_container">
+                                    <label for="category_selected">Categoría seleccionada <small class="text-danger">*</small></label>
+                                    <input class="form-control required" id="category_selected" type="text" name="category_selected" value=""/>
+                                </div>
                                 <div class="form-group">
                                     <label style="display: none" class="work_places_container_label" for="category">Puestos de trabajo <small class="text-danger">*</small></label>
                                     <div class="work_places_container"></div>
                                 </div>
+                                <div style="display: none" class="form-group work_place_selected_container">
+                                    <label for="work_place_selected">Puesto de trabajo seleccionado <small class="text-danger">*</small></label>
+                                    <input class="form-control required" id="work_place_selected" type="text" name="work_place_selected" value=""/>
+                                </div>
 
+                                <div class="row cnos_container" style="display: none">
+                                    <div class="col-12 col-md-12">
+                                        <div class="form-group cno_level_1_container">
+                                            <label for="cno_level_1_id">Nivel 1</label>
+                                            <?php if(!empty($cnos_level_1)) { ?>
+                                                <select id="cno_level_1_id" name="cno_level_1_id" class="form-control">
+                                                    <option value="">Seleccione</option>
+                                                    <?php foreach ($cnos_level_1 as $cno_level_1) { ?>
+                                                        <option value="<?=$cno_level_1->id ?>"><?=$cno_level_1->cno_name ?></option>
+                                                    <?php } ?>
+                                                </select>
+                                            <?php } ?>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-12">
+                                        <div class="form-group cno_level_2_container">
+                                            <label for="cno_level_2">Nivel 2</label>
+                                            <div class="cno_level_2_select_container">
+                                                <select disabled="disabled" class="form-control">
+                                                    <option>Seleccione nivel 1</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-12">
+                                        <div class="form-group cno_level_3_container">
+                                            <label for="cno_level_3">Nivel 3</label>
+                                            <div class="cno_level_3_select_container">
+                                                <select disabled="disabled" class="form-control">
+                                                    <option>Seleccione nivel 2</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="row">
-                                    <div class="col-lg-12">
+                                    <div class="col-12 col-md-12">
                                         <div class="form-group">
-                                            <label for="wp_cod_ocupation">CNO <small class="text-danger">*</small></label>
-                                            <input readonly type="text" name="wp_cod_ocupation" id="wp_cod_ocupation" class="form-control required">
+                                            <label for="wp_cod_ocupation">CNO <small class="text-danger">*</small></label> <small class="float-right"><a class="btn_change_cno" href="javascript:">Cambiar</a></small>
+                                            <input type="text" name="cod_ocupation" id="wp_cod_ocupation" class="form-control required">
                                         </div>
                                     </div>
                                 </div>
@@ -277,7 +334,7 @@
                                     <div class="col-lg-12">
                                         <div class="form-group">
                                             <label for="wp_tariff_group">Grupo de tarifa <small class="text-danger">*</small></label>
-                                            <input readonly type="text" name="wp_tariff_group" id="wp_tariff_group" class="form-control required">
+                                            <input type="text" name="tariff_group" id="wp_tariff_group" class="form-control required">
                                         </div>
                                     </div>
                                 </div>
@@ -286,7 +343,7 @@
                                     <div class="col-lg-12">
                                         <div class="form-group">
                                             <label for="wp_type_of_charge">Tipo de cobro <small class="text-danger">*</small></label>
-                                            <input readonly type="text" name="wp_type_of_charge" id="wp_type_of_charge" class="form-control required">
+                                            <input type="text" name="type_of_charge" id="wp_type_of_charge" class="form-control required">
                                         </div>
                                     </div>
                                 </div>
@@ -332,6 +389,19 @@
                                             <input disabled class="salary_type" type="radio" name="salary_type" value="neto">
                                             <span class="checkmark"></span>
                                         </label>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-12">
+                                    <div class="form-group cno_level_1_container">
+                                        <label for="education_level_id">Nivel educativo</label>
+                                        <?php if(!empty($education_levels)) { ?>
+                                            <select id="education_level_id" name="education_level_id" class="form-control">
+                                                <option value="">Seleccione</option>
+                                                <?php foreach ($education_levels as $education_level) { ?>
+                                                    <option value="<?=$education_level->id ?>"><?=$education_level->el_education_level ?></option>
+                                                <?php } ?>
+                                            </select>
+                                        <?php } ?>
                                     </div>
                                 </div>
                             </div>
@@ -392,6 +462,7 @@
 <script src="<?=getenv('JS') ?>common_scripts.min.js"></script>
 <script src="<?=getenv('JS') ?>velocity.min.js"></script>
 <script src="<?=getenv('JS') ?>common_functions.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 
 <script>
 
@@ -432,9 +503,9 @@
         });
 
         $(".dni").click(function(){
-            $("#country").val('España');
+            $("#country").val('77');
             $("#country").attr('disabled', true);
-            $('#country_hidden').val('España');
+            $('#country_hidden').val('77');
         });
         $(".nie").click(function(){
             $("#country").val('');
@@ -510,6 +581,7 @@
             $.ajax({url: url, success: function(result){
                 var response = JSON.parse(result);
                 $(".work_centers_container").html(response.work_centers);
+                $('#work_center').select2();
                 $("#nif").val(response.company_nif);
                 $("#work_center").change(function(){
                     var ccc = $(this).val();
@@ -518,6 +590,19 @@
                 get_categories();
             }});
         });
+
+        get_municipalities();
+
+        $('#company_id').select2();
+        $('#province_id').select2();
+        $('#road_type').select2();
+
+        $(".btn_change_cno").click(function(){
+            $(".cnos_container").toggle();
+        });
+
+        get_cnos_level_2();
+
 
 
 
@@ -532,9 +617,12 @@
                 $(".categories_container").html(result);
                 $("#categories").change(function(){
                     get_work_places($(this).val())
+                    $("#category_selected").val($(this).find('option:selected').text());
+                    $(".category_selected_container").fadeIn();
                 });
         }});
     }
+
 
 
     function get_work_places(category_id){
@@ -548,13 +636,49 @@
 
     function get_work_place_data(){
         $("#work_places").change(function(){
-            var url = "<?php echo site_url() ?>home/get_work_place_data?work_place_id_id=" + $(this).val();
+            $("#work_place_selected").val($(this).find('option:selected').text());
+            $(".work_place_selected_container").fadeIn();
+            var url = "<?php echo site_url() ?>home/get_work_place_data?work_place_id=" + $(this).val();
             $.ajax({url: url, success: function(result){
                     var response = JSON.parse(result);
                     $("#wp_cod_ocupation").val(response.wp_cod_ocupation);
                     $("#wp_tariff_group").val(response.wp_tariff_group);
                     $("#wp_type_of_charge").val(response.wp_type_of_charge);
+
             }});
+        })
+    }
+
+    function get_municipalities(){
+        $("#province_id").change(function(){
+            var url = "<?php echo site_url() ?>home/get_municipalities?province_id=" + $(this).val();
+            $.ajax({url: url, success: function(result){
+                    $(".municipalities_container").html(result);
+                    $('#municipality_id').select2();
+                    $(".municipalities_container_label").fadeIn();
+            }});
+        })
+    }
+
+    function get_cnos_level_2(){
+        $("#cno_level_1_id").change(function(){
+            var url = "<?php echo site_url() ?>home/get_cnos_level_2?parent_id=" + $(this).val();
+            $.ajax({url: url, success: function(result){
+                    $(".cno_level_2_select_container").html(result);
+                    get_cnos_level_3();
+            }});
+        })
+    }
+
+    function get_cnos_level_3(){
+        $("#cno_level_2_id").change(function(){
+            var url = "<?php echo site_url() ?>home/get_cnos_level_3?parent_id=" + $(this).val();
+            $.ajax({url: url, success: function(result){
+                    $(".cno_level_3_select_container").html(result);
+                    $("#cno_level_3_id").change(function(){
+                        $("#wp_cod_ocupation").val($("#cno_level_3_id").find('option:selected').text());
+                    })
+                }});
         })
     }
 

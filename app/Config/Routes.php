@@ -37,6 +37,9 @@ $routes->add('home/get_select_work_centers', 'Home::get_select_work_centers');
 $routes->add('home/get_select_categories', 'Home::get_select_categories');
 $routes->add('home/get_select_work_places', 'Home::get_select_work_places');
 $routes->add('home/get_work_place_data', 'Home::get_work_place_data');
+$routes->add('home/get_municipalities', 'Home::get_municipalities');
+$routes->add('home/get_cnos_level_2', 'Home::get_cnos_level_2');
+$routes->add('home/get_cnos_level_3', 'Home::get_cnos_level_3');
 
 /*
  * --------------------------------------------------------------------

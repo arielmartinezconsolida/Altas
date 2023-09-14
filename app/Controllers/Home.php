@@ -13,7 +13,12 @@ class Home extends BaseController
         $this->EmployeesModel = model('App\Models\EmployeesModel');
         $this->Work_centersModel = model('App\Models\Work_centersModel');
         $this->Work_placesModel = model('App\Models\Work_placesModel');
-        $this->Provinces_Model = model('App\Models\Work_placesModel');
+        $this->Provinces_Model = model('App\Models\Provinces_Model');
+        $this->Municipalities_Model = model('App\Models\Municipalities_Model');
+        $this->Cnos_level_1_Model = model('App\Models\Cnos_level_1_Model');
+        $this->Cnos_level_2_Model = model('App\Models\Cnos_level_2_Model');
+        $this->Cnos_level_3_Model = model('App\Models\Cnos_level_3_Model');
+        $this->Education_levels_Model = model('App\Models\Education_levels_Model');
     }
 
     public function index()
@@ -46,8 +51,7 @@ class Home extends BaseController
         if($this->request->getPost()){
             $data_post = $this->request->getPost();
 
-            $country = $data_post['country'] ?? null;
-            $data_post['country'] = $country ?? $data_post['country_hidden'];
+            $data_post['country_id'] = $data_post['country_id'] ?? $data_post['country_hidden'];
 
             $weekly_working_hours = $data_post['weekly_working_hours'] ?? null;
             $weekly_working_hours = $weekly_working_hours ?? $data_post['weekly_working_hours_hidden'];
@@ -58,16 +62,18 @@ class Home extends BaseController
 
             if($this->EmployeesModel->save($data_post))
             {
-                $email_body = $this->emailBody($data_post);
-                $this->sendSingleMail('ariel.martinez@metodoconsolida.es', 'Nueva alta', $email_body, 'ariel.martinez@metodoconsolida.es', 'd.mondaca@metodoconsolida.es');
+                //$email_body = $this->emailBody($data_post);
+                //$this->sendSingleMail('ariel.martinez@metodoconsolida.es', 'Nueva alta', $email_body, 'ariel.martinez@metodoconsolida.es', 'd.mondaca@metodoconsolida.es');
             }
-            return redirect()->to(site_url().'process?token=394ffkgmtrl456gfktdmvkas');
+            //return redirect()->to(site_url().'process?token=394ffkgmtrl456gfktdmvkas');
 
         }
         $data['companies'] = $this->CompaniesModel->where('com_user_id', session('id'))->findAll();
         $data['countries'] = $this->CountriesModel->findAll();
         $data['road_types'] = $this->Road_typesModel->findAll();
-        $data['provinces'] = $this->ProvincesModel->findAll();
+        $data['provinces'] = $this->Provinces_Model->findAll();
+        $data['cnos_level_1'] = $this->Cnos_level_1_Model->findAll();
+        $data['education_levels'] = $this->Education_levels_Model->findAll();
         echo view('wizard', $data);
 
     }
@@ -201,7 +207,7 @@ class Home extends BaseController
         if(empty($company_id)) die('');
         $company = $this->CompaniesModel->where('id', $company_id)->first();
         $work_centers = $this->Work_centersModel->where('wc_company_id', $company_id)->findAll();
-        $html = '<select id="work_center" name="work_center" class="form-control required">';
+        $html = '<select id="work_center" name="work_center_id" class="form-control required">';
         if(!empty($work_centers))
         {
             $html .= '<option value="">Seleccione</option>';
@@ -247,8 +253,56 @@ class Home extends BaseController
         echo $html;
     }
 
+    function get_municipalities(){
+        $province_id = $this->request->getGet('province_id');
+        if(empty($province_id)) die('');
+        $municipalities = $this->Municipalities_Model->where(['mun_province_id' => $province_id])->orderBy('mun_name', 'ASC')->findAll();
+        $html = '<select id="municipality_id" name="municipality_id" class="form-control required">';
+        if(!empty($municipalities))
+        {
+            $html .= '<option value="">Seleccione</option>';
+            foreach ($municipalities as $municipality) {
+                $html .= '<option value="'.$municipality->id.'">'.$municipality->mun_name.'</option>';
+            }
+        }
+        $html .= '</select>';
+        echo $html;
+    }
+
+    function get_cnos_level_2(){
+        $parent_id = $this->request->getGet('parent_id');
+        if(empty($parent_id)) die('');
+        $cnos = $this->Cnos_level_2_Model->where(['parent_id' => $parent_id])->orderBy('cno_name', 'ASC')->findAll();
+        $html = '<select id="cno_level_2_id" name="cno_level_2_id" class="form-control">';
+        if(!empty($cnos))
+        {
+            $html .= '<option value="">Seleccione</option>';
+            foreach ($cnos as $cno) {
+                $html .= '<option value="'.$cno->id.'">'.$cno->cno_name.'</option>';
+            }
+        }
+        $html .= '</select>';
+        echo $html;
+    }
+
+    function get_cnos_level_3(){
+        $parent_id = $this->request->getGet('parent_id');
+        if(empty($parent_id)) die('');
+        $cnos = $this->Cnos_level_3_Model->where(['parent_id' => $parent_id])->orderBy('cno_name', 'ASC')->findAll();
+        $html = '<select id="cno_level_3_id" name="cno_level_3_id" class="form-control">';
+        if(!empty($cnos))
+        {
+            $html .= '<option value="">Seleccione</option>';
+            foreach ($cnos as $cno) {
+                $html .= '<option value="'.$cno->id.'">'.$cno->cno_name.'</option>';
+            }
+        }
+        $html .= '</select>';
+        echo $html;
+    }
+
     function get_work_place_data(){
-        $work_place_id_id = $this->request->getGet('work_place_id_id');
+        $work_place_id_id = $this->request->getGet('work_place_id');
         if(empty($work_place_id_id)) die('');
         $work_place = $this->Work_placesModel->find($work_place_id_id);
         echo json_encode(['wp_cod_ocupation' => $work_place->wp_cod_ocupation, 'wp_tariff_group' => $work_place->wp_tariff_group, 'wp_type_of_charge' => $work_place->wp_type_of_charge]);
