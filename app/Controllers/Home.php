@@ -50,7 +50,6 @@ class Home extends BaseController
         }
         if($this->request->getPost()){
             $data_post = $this->request->getPost();
-
             $data_post['country_id'] = $data_post['country_id'] ?? $data_post['country_hidden'];
 
             $weekly_working_hours = $data_post['weekly_working_hours'] ?? null;
@@ -60,13 +59,17 @@ class Home extends BaseController
             $monthly_salary = $data_post['monthly_salary'];
             $data_post['monthly_salary'] = str_replace(',', '.', $monthly_salary);
 
+          /*  if($this->EmployeesModel->save($data_post))
+            {
+                $email_body = $this->emailBody($data_post);
+                $this->sendSingleMail('ariel.martinez@metodoconsolida.es', 'Nueva alta', $email_body, 'ariel.martinez@metodoconsolida.es', 'd.mondaca@metodoconsolida.es');
+            }
+            return redirect()->to(site_url().'process?token=394ffkgmtrl456gfktdmvkas');*/
+
             if($this->EmployeesModel->save($data_post))
             {
-                //$email_body = $this->emailBody($data_post);
-                //$this->sendSingleMail('ariel.martinez@metodoconsolida.es', 'Nueva alta', $email_body, 'ariel.martinez@metodoconsolida.es', 'd.mondaca@metodoconsolida.es');
+                return redirect()->to(site_url().'wizard');
             }
-            //return redirect()->to(site_url().'process?token=394ffkgmtrl456gfktdmvkas');
-
         }
         $data['companies'] = $this->CompaniesModel->where('com_user_id', session('id'))->findAll();
         $data['countries'] = $this->CountriesModel->findAll();
@@ -294,7 +297,7 @@ class Home extends BaseController
         {
             $html .= '<option value="">Seleccione</option>';
             foreach ($cnos as $cno) {
-                $html .= '<option value="'.$cno->id.'">'.$cno->cno_name.'</option>';
+                $html .= '<option value="'.$cno->cno_code.'">'.$cno->cno_name.'</option>';
             }
         }
         $html .= '</select>';
@@ -305,6 +308,14 @@ class Home extends BaseController
         $work_place_id_id = $this->request->getGet('work_place_id');
         if(empty($work_place_id_id)) die('');
         $work_place = $this->Work_placesModel->find($work_place_id_id);
-        echo json_encode(['wp_cod_ocupation' => $work_place->wp_cod_ocupation, 'wp_tariff_group' => $work_place->wp_tariff_group, 'wp_type_of_charge' => $work_place->wp_type_of_charge]);
+        echo json_encode([
+            'wp_cod_ocupation' => $work_place->wp_cod_ocupation,
+            'wp_tariff_group' => $work_place->wp_tariff_group,
+            'wp_type_of_charge' => $work_place->wp_type_of_charge,
+            'wp_cod_ocupation_letter' => $work_place->wp_cod_ocupation_letter,
+            'wp_imputation' => $work_place->wp_imputation,
+            'wp_test_period' => $work_place->wp_test_period,
+            'wp_description_of_functions' => $work_place->wp_description_of_functions,
+        ]);
     }
 }
