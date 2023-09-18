@@ -19,6 +19,7 @@ class Home extends BaseController
         $this->Cnos_level_2_Model = model('App\Models\Cnos_level_2_Model');
         $this->Cnos_level_3_Model = model('App\Models\Cnos_level_3_Model');
         $this->Education_levels_Model = model('App\Models\Education_levels_Model');
+        $this->Companies_agreements_Model = model('App\Models\Companies_agreements_Model');
     }
 
     public function index()
@@ -222,12 +223,27 @@ class Home extends BaseController
         echo json_encode(['work_centers' => $html, 'company_nif' => $company->com_cif]);
     }
 
-
-    function get_select_categories(){
+    function get_select_agreements(){
         $company_id = $this->request->getGet('company_id');
         if(empty($company_id)) die('');
         $company = $this->CompaniesModel->where('id', $company_id)->first();
-        $categories = $this->CategoriesModel->where(['cat_agreement_id' => $company->com_agreement_id, 'cat_user_id' => session('id')])->orderBy('cat_name', 'ASC')->findAll();
+        $agreements = $this->Companies_agreements_Model->getCompanyAgreements($company_id);
+        $html = '<select id="agreements" name="agreement_id" class="form-control required">';
+        if(!empty($agreements))
+        {
+            foreach ($agreements as $agreement) {
+                $html .= '<option value="'.$agreement->id.'">'.$agreement->agr_name.'</option>';
+            }
+        }
+        $html .= '</select>';
+        echo $html;
+    }
+
+
+    function get_select_categories(){
+        $agreement_id = $this->request->getGet('agreement_id');
+        if(empty($agreement_id)) die('');
+        $categories = $this->CategoriesModel->where(['cat_agreement_id' => $agreement_id, 'cat_user_id' => session('id')])->orderBy('cat_name', 'ASC')->findAll();
         $html = '<select id="categories" name="category_id" class="form-control required">';
         if(!empty($categories))
         {

@@ -91,6 +91,19 @@
                                         </div>
                                     </div>
                                 </div>
+                                <!--CONVENIOS-->
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label for="work_center">Convenio <small class="text-danger">*</small></label>
+                                            <div class="agreements_container">
+                                                <select disabled id="agreement" name="agreement" class="form-control required">
+                                                    <option value="">Seleccione antes la empresa</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <!--CENTROS DE TRABAJO-->
                                 <div class="row">
                                     <div class="col-lg-12">
@@ -658,8 +671,12 @@
                     var ccc = $(this).val();
                     $("#wc_ccc").val(ccc);
                 });
-                get_categories();
             }});
+            var url = "<?php echo site_url() ?>home/get_select_agreements?company_id=" + $("#company_id").val()
+            $.ajax({url: url, success: function(result){
+                    $(".agreements_container").html(result);
+                    get_categories();
+                }});
         });
 
         get_municipalities();
@@ -710,7 +727,7 @@
 
 
     function get_categories(){
-        var url = "<?php echo site_url() ?>home/get_select_categories?company_id=" + $("#company_id").val()
+        var url = "<?php echo site_url() ?>home/get_select_categories?agreement_id=" + $("#agreements").val()
         $.ajax({url: url, success: function(result){
                 $(".categories_container").html(result);
                 $("#categories").change(function(){
