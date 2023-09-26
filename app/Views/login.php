@@ -62,12 +62,6 @@
                     <button type="submit" class="btn btn-info btn-lg btn-block"><i class="ft-unlock"></i> Entrar</button>
 
                 </form>
-                <div>
-                    <p class="text-center mt-3">
-                        Estimado cliente, las altas que se ingresen en el formulario, serán procesadas en los siguiente horarios:
-                        09:00, 11:00, 13:00 y 17:00 hrs de lunes a viernes (días laborales)
-                    </p>
-                </div>
             </div>
             <div class="col-12 col-md-4"></div>
         </div><!-- /Row -->

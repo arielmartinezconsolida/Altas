@@ -373,10 +373,23 @@
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group">
-                                            <label for="cod_ocupations">Códigos</label>
+                                            <label for="cod_ocupations">Códigos</label> <small class="float-right"><a data-toggle="modal" data-target="#codesModal" class="" href="javascript:">Más info</a></small>
                                             <select disabled name="cod_ocupations" id="cod_ocupations" class="form-control">
                                                 <option value="">Seleccione</option>
                                                 <option value="A">A</option>
+                                                <option value="B">B</option>
+                                                <option value="C">C</option>
+                                                <option value="D">D</option>
+                                                <option value="E">E</option>
+                                                <option value="F">F</option>
+                                                <option value="G">G</option>
+                                                <option value="H">H</option>
+                                                <option value="I">I</option>
+                                                <option value="V">V</option>
+                                                <option value="W">W</option>
+                                                <option value="X">X</option>
+                                                <option value="Y">Y</option>
+                                                <option value="Z">Z</option>
                                             </select>
                                         </div>
                                     </div>
@@ -803,5 +816,126 @@
 
 
 </script>
+<div class="modal fade" id="codesModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ocupación</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Clave</th>
+                            <th>Descripción</th>
+                            <th>Comentarios</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>A</td>
+                            <td>Personal en trabajos exclusivos de oficina</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>B</td>
+                            <td>Tipo de cotización para todos los trabajadores que
+                                deban desplazarse habitualmente durante su jornada
+                                laboral, siempre por razón de la ocupación o la actividad
+                                económica no corresponda un tipo superior.
+                                Representantes Comercio</td>
+                            <td>Solo para liquidaciones
+                                complementarias anteriores al 2010
+                                Obligatorio para liquidaciones
+                                posteriores a 09/2015</td>
+                        </tr>
+                        <tr>
+                            <td>C</td>
+                            <td>Trabajadores en periodo de baja por incapacidad
+                                temporal y otras situaciones con suspensión de la
+                                relación laboral con obligación de cotizar</td>
+                            <td>Solo para liquidaciones
+                                complementarias anteriores al 2010</td>
+                        </tr>
+                        <tr>
+                            <td>D</td>
+                            <td>Personal de oficios en instalaciones y reparaciones en
+                                edificios, obras y trabajos de construcción en general</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>E</td>
+                            <td>Conductores de vehículo automóvil de transporte de
+                                pasajeros en general (taxis, automóviles, autobuses,
+                                etc) y de transporte de mercancías que tengan una
+                                capacidad de carga útil no superior a 3,5 Tm</td>
+                            <td>Solo para liquidaciones
+                                complementarias anteriores al 2013</td>
+                        </tr>
+                        <tr>
+                            <td>F</td>
+                            <td>Conductores de vehículo automóvil de transporte de
+                                mercancías que tengan una capacidad de carga útil
+                                superior a 3,5 Tm</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>G</td>
+                            <td>Personal de limpieza en general. Limpieza de edificios y
+                                de todo tipo de establecimientos. Limpieza de calles</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>H</td>
+                            <td>Vigilantes, guardas, guardas jurados y personal de
+                                seguridad</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>I</td>
+                            <td>Personal de vuelo</td>
+                            <td>Solo para liquidaciones
+                                complementarias anteriores al 2008</td>
+                        </tr>
+                        <tr>
+                            <td>V</td>
+                            <td>Grupo segundo de cotización al Régimen Especial del
+                                Mar</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>W</td>
+                            <td>Grupo tercero de cotización al Régimen Especial del
+                                Mar</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>X</td>
+                            <td>Carga y descarga; estiba y desestiba</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Y</td>
+                            <td>Trabajos habituales en interior de minas</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Z</td>
+                            <td>Dependientes. Cajeros</td>
+                            <td>Solo para liquidaciones
+                                complementarias anteriores al 2010</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
