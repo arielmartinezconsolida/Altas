@@ -371,7 +371,7 @@
                                             <input type="text" name="cod_ocupation_letter" id="wp_cod_ocupation_letter" class="form-control required">
                                         </div>
                                     </div>
-                                    <div class="col-lg-4">
+                                    <div style="display: none" class="codes_container col-lg-4">
                                         <div class="form-group">
                                             <label for="cod_ocupations">Códigos</label> <small class="float-right"><a data-toggle="modal" data-target="#codesModal" class="" href="javascript:">Más info</a></small>
                                             <select disabled name="cod_ocupations" id="cod_ocupations" class="form-control">
@@ -404,7 +404,7 @@
                                             <input type="text" name="test_period" id="wp_test_period" class="form-control required">
                                         </div>
                                     </div>
-                                    <div class="col-lg-3">
+                                    <div style="display: none" class="cant_container col-lg-3">
                                         <div class="form-group">
                                             <label for="cant">Cant</label>
                                             <select disabled name="cant" id="cant" class="form-control">
@@ -415,7 +415,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-lg-3">
+                                    <div style="display: none" class="units_container col-lg-3">
                                         <div class="form-group">
                                             <label for="unit">Unidad</label>
                                             <select disabled name="unit" id="unit" class="form-control">
@@ -477,7 +477,7 @@
                                     <label for="monthly_salary">Salario mensual</label>
                                     <input type="number" name="monthly_salary" id="monthly_salary" class="form-control">
                                 </div>
-                                <div class="salary_type_container" style="display: block">
+                                <div class="salary_type_container" style="display: none">
                                     <p><label>Tipo de salario</label></p>
                                     <div class="form-group">
                                         <label class="container_radio version_2">Bruto
@@ -508,7 +508,7 @@
                                 <div class="summary text-center">
                                     <div class="wrapper">
                                         <h3>¡Ya lo tenemos todo!</h3>
-                                        <p>Da click en Enviar para comenzar con el proceso de alta. Recibirás un email o un SMS con el resultado al concluirlo</p>
+                                        <p>Da clic en Enviar para comenzar con el proceso de alta. Puedes realizar el seguimiento en el Panel Lourdes.</p>
                                     </div>
                                 </div>
                             </div>
@@ -705,11 +705,14 @@
 
         $(".btn_change_code_ocupation").click(function(){
             $("#cod_ocupations").removeAttr('disabled')
+            $(".codes_container").fadeIn();
         });
 
         $(".btn_change_test_period").click(function(){
             $("#cant").removeAttr('disabled')
             $("#unit").removeAttr('disabled')
+            $(".cant_container").fadeIn();
+            $(".units_container").fadeIn();
         });
 
         $("#cod_ocupations").change(function(){
@@ -732,7 +735,7 @@
         get_cnos_level_2();
 
 
-
+        //validate_salary_type();
 
 
 
@@ -812,6 +815,27 @@
                     })
                 }});
         })
+    }
+
+    function validate_salary_type(){
+        var input = $('#monthly_salary');
+        input.on('input', function() {
+            // Verifica si el valor del input está vacío
+            if (input.val().trim() !== '') {
+                $(".salary_type_container").fadeIn();
+                $(".salary_type").attr('disabled', false);
+                $(".salary_type").addClass('required');
+            } else {
+                $(".salary_type_container").fadeOut();
+                $(".salary_type").attr('disabled', true);
+                $(".salary_type").prop('checked', false);
+                //$(".salary_type").removeClass('required');
+                //$(".salary_type").removeClass('error');
+
+                //$('.salary_type_container').find('.error').remove();
+                //$('.salary_type_container').find('.checkmark').remove();
+            }
+        });
     }
 
 

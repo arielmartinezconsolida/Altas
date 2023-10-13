@@ -5,7 +5,7 @@ use CodeIgniter\Validation\ValidationInterface;
 
 class Work_centersModel  extends BaseModel
 {
-    protected $table = 'Work_centers';
+    protected $table = 'work_centers';
     protected $allowedFields = [];
     protected $returnType    = 'App\Entities\Work_center';
     protected $useTimestamps = true;
