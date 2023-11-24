@@ -367,8 +367,8 @@
                                 <div class="row">
                                     <div class="col-lg-8">
                                         <div class="form-group">
-                                            <label for="wp_cod_ocupation_letter">Código de ocupación TGSS <small class="text-danger">*</small></label> <small class="float-right"><a class="btn_change_code_ocupation" href="javascript:">Cambiar</a></small>
-                                            <input type="text" name="cod_ocupation_letter" id="wp_cod_ocupation_letter" class="form-control required">
+                                            <label for="wp_cod_ocupation_letter">Código de ocupación TGSS </label> <small class="float-right"><a class="btn_change_code_ocupation" href="javascript:">Cambiar</a></small>
+                                            <input type="text" name="cod_ocupation_letter" id="wp_cod_ocupation_letter" class="form-control">
                                         </div>
                                     </div>
                                     <div style="display: none" class="codes_container col-lg-4">
