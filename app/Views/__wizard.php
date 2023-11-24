@@ -432,7 +432,7 @@
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="form-group">
-                                            <label for="wp_imputation">Imputación </label>
+                                            <label for="wp_imputation">Imputación <small class="text-danger">*</small></label>
                                             <input readonly type="text" name="imputation" id="wp_imputation" class="form-control">
                                         </div>
                                     </div>
@@ -477,15 +477,15 @@
                                     <label for="monthly_salary">Salario mensual</label>
                                     <input type="number" name="monthly_salary" id="monthly_salary" class="form-control">
                                 </div>
-                                <div class="salary_type_container" style="display: block">
+                                <div class="salary_type_container" style="display: none">
                                     <p><label>Tipo de salario</label></p>
                                     <div class="form-group">
                                         <label class="container_radio version_2">Bruto
-                                            <input  class="salary_type" type="radio" name="salary_type" value="bruto">
+                                            <input disabled class="salary_type" type="radio" name="salary_type" value="bruto">
                                             <span class="checkmark"></span>
                                         </label>
                                         <label class="container_radio version_2">Neto
-                                            <input  class="salary_type" type="radio" name="salary_type" value="neto">
+                                            <input disabled class="salary_type" type="radio" name="salary_type" value="neto">
                                             <span class="checkmark"></span>
                                         </label>
                                     </div>
@@ -623,7 +623,16 @@
         });
 
 
-        
+        $("#monthly_salary").change(function(){
+            if($("#monthly_salary").val() != ''){
+                $(".salary_type").attr('disabled', false);
+                $(".salary_type").addClass('required');
+            } else {
+                $(".salary_type").attr('disabled', true);
+                $(".salary_type").prop('checked', false);
+                $(".salary_type").removeClass('required');
+            }
+        });
 
         $("#contract_date_start").change(function(){
             validate_date_contract();

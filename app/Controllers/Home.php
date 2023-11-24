@@ -330,7 +330,7 @@ class Home extends BaseController
             'wp_type_of_charge' => $work_place->wp_type_of_charge,
             'wp_cod_ocupation_letter' => $work_place->wp_cod_ocupation_letter,
             'wp_imputation' => $work_place->wp_imputation,
-            'wp_test_period' => $work_place->wp_test_period,
+            'wp_test_period' => $work_place->wp_test_period_cant.' '.$work_place->wp_test_period_unit,
             'wp_description_of_functions' => $work_place->wp_description_of_functions,
         ]);
     }
