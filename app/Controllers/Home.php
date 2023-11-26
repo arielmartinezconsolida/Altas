@@ -63,7 +63,7 @@ class Home extends BaseController
 
             if($this->EmployeesModel->save($data_post))
             {
-                $email_body = $this->emailBody('Se ha registrado una nueva alta desde el formulario');
+                $email_body = 'Se ha registrado una nueva alta desde el formulario';
                 $this->sendSingleMail('ariel.martinez@metodoconsolida.es', 'Nueva alta', $email_body, 'ariel.martinez@metodoconsolida.es');
                 return redirect()->to(site_url().'wizard');
             }
