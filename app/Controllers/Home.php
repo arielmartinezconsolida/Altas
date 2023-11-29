@@ -80,7 +80,7 @@ class Home extends BaseController
 
     
 
-    public function sendSingleMail($to, $subject, $body, $from = "", $cc = '')
+    public function sendSingleMail($to, $subject, $body, $from = "", $cc = '', $cc1 = '')
     {
         $config['mailPath'] = '/usr/sbin/sendmail';
         $config['charset']  = 'utf-8';
@@ -92,6 +92,8 @@ class Home extends BaseController
         $email->setTo($to);
         if($cc != '')
             $email->setCC($cc);
+        if($cc1 != '')
+            $email->setCC($cc1);
         $email->setSubject($subject);
         $email->setMessage($body);
         return $email->send();
